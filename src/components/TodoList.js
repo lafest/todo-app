@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { TodoListItem } from './TodoListItem';
 
-export const TodoList = () => {
+export const TodoList = ({ todos, onRemove, onToggle }) => {
   return (
     <TodoListWrapper>
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
+      {todos.map((todo) => (
+        <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle} />
+      ))}
     </TodoListWrapper>
   );
 };

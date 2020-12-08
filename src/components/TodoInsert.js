@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 
-export const TodoInsert = () => {
+export const TodoInsert = ({ onInsert }) => {
+  const [value, setValue] = useState('');
+
+  const onChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+    },
+    [setValue],
+  );
+
+  const onSubmit = useCallback(
+    (e) => {
+      onInsert(value);
+      setValue('');
+      e.preventDefault();
+    },
+    [onInsert, value, setValue],
+  );
+
   return (
-    <TodoInsertWrapper>
-      <input placeholder="write todo..." />
+    <TodoInsertWrapper onSubmit={onSubmit}>
+      <input placeholder="write todo..." value={value} onChange={onChange} />
       <button type="submit">
         <MdAdd />
       </button>
@@ -17,7 +35,7 @@ const TodoInsertWrapper = styled.form`
   display: flex;
   background: #495057;
   input {
-    background: none; 
+    background: none;
     outline: none;
     border: none;
     padding: 0.5rem;

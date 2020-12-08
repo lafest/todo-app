@@ -6,14 +6,16 @@ import {
   MdCheckBox,
 } from 'react-icons/md';
 
-export const TodoListItem = () => {
+export const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  const { text, checked, id } = todo;
+
   return (
     <TodoListItemWrapper>
-      <CheckBox checked={false}>
-        <MdCheckBoxOutlineBlank />
-        <Text checked={false}>Todo</Text>
+      <CheckBox checked={checked} onClick={() => onToggle(id)}>
+        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <Text checked={checked}>{text}</Text>
       </CheckBox>
-      <Remove>
+      <Remove onClick={() => onRemove(id)}>
         <MdRemoveCircleOutline />
       </Remove>
     </TodoListItemWrapper>
@@ -49,6 +51,7 @@ const Text = styled.div`
   margin-left: 0.5rem; // 최상위 부모의 기본 폰트크기의 0.5배만큼 왼쪽에 빈 공간을 띄워줌
   flex: 1; // 같은 단계의 자식들이 각자의 크기를 가진 후, 나머지 공간을 모두 차지하게 됨
   text-decoration: ${(props) => (props.checked ? 'line-through' : 'none')};
+  color: ${(props) => (props.checked ? 'gray' : 'black')};
 `;
 
 const Remove = styled.div`
