@@ -6,23 +6,31 @@ import {
   MdCheckBox,
 } from 'react-icons/md';
 
-const TodoListItem = ({ todo, onRemove, onToggle }) => {
+const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
   const { text, checked, id } = todo;
 
   return (
-    <TodoListItemWrapper>
-      <CheckBox checked={checked} onClick={() => onToggle(id)}>
-        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-        <Text checked={checked}>{text}</Text>
-      </CheckBox>
-      <Remove onClick={() => onRemove(id)}>
-        <MdRemoveCircleOutline />
-      </Remove>
-    </TodoListItemWrapper>
+    <TodoListItemVirtualized style={style}>
+      <TodoListItemWrapper>
+        <CheckBox checked={checked} onClick={() => onToggle(id)}>
+          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          <Text checked={checked}>{text}</Text>
+        </CheckBox>
+        <Remove onClick={() => onRemove(id)}>
+          <MdRemoveCircleOutline />
+        </Remove>
+      </TodoListItemWrapper>
+    </TodoListItemVirtualized>
   );
 };
 
 export default memo(TodoListItem);
+
+const TodoListItemVirtualized = styled.div`
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
+`;
 
 const TodoListItemWrapper = styled.div`
   padding: 1rem; // 모든 방향에 1rem(글자하나크기)만큼 안쪽간격을 줌
@@ -31,9 +39,6 @@ const TodoListItemWrapper = styled.div`
   :nth-child(even) {
     // 짝수번째 자식에 대한 속성을 따로 정의
     background: #f8f9fa;
-  }
-  & + & {
-    border-top: 1px solid #dee2e6;
   }
 `;
 
