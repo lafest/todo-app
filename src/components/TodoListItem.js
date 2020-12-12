@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import {
   MdCheckBoxOutlineBlank,
@@ -6,7 +6,7 @@ import {
   MdCheckBox,
 } from 'react-icons/md';
 
-export const TodoListItem = ({ todo, onRemove, onToggle }) => {
+const TodoListItem = ({ todo, onRemove, onToggle }) => {
   const { text, checked, id } = todo;
 
   return (
@@ -21,6 +21,8 @@ export const TodoListItem = ({ todo, onRemove, onToggle }) => {
     </TodoListItemWrapper>
   );
 };
+
+export default memo(TodoListItem);
 
 const TodoListItemWrapper = styled.div`
   padding: 1rem; // 모든 방향에 1rem(글자하나크기)만큼 안쪽간격을 줌

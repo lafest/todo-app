@@ -3,26 +3,22 @@ import { TodoInsert } from './components/TodoInsert';
 import { TodoList } from './components/TodoList';
 import { TodoTemplate } from './components/TodoTemplate';
 
-const App = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: 'react basic',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: 'component styling',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: 'todo app',
+const createBulkTodos = () => {
+  const array = [];
+  for (let i = 0; i < 2500; i += 1) {
+    array.push({
+      id: i,
+      text: `todo idx: ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+  return array;
+};
 
-  const nextId = useRef(4);
+const App = () => {
+  const [todos, setTodos] = useState(createBulkTodos);
+
+  const nextId = useRef(2501);
 
   const onInsert = useCallback(
     (text) => {
@@ -46,10 +42,14 @@ const App = () => {
 
   const onToggle = useCallback(
     (id) => {
-      setTodos((prev) => prev.map((todo) => todo.id === id ? { ...todo, checked: !todo.checked } : todo));
+      setTodos((prev) =>
+        prev.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      );
     },
     [setTodos],
-  )
+  );
 
   return (
     <TodoTemplate>

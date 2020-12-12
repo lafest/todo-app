@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TodoListItem } from './TodoListItem';
+import TodoListItem from './TodoListItem';
 
 export const TodoList = ({ todos, onRemove, onToggle }) => {
   return (
