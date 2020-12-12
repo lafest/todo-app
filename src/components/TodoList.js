@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import TodoListItem from './TodoListItem';
 
-export const TodoList = ({ todos, onRemove, onToggle }) => {
+const TodoList = ({ todos, onRemove, onToggle }) => {
   return (
     <TodoListWrapper>
       {todos.map((todo) => (
-        <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle} />
+        <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle} key={todo.id} />
       ))}
     </TodoListWrapper>
   );
 };
+
+export default memo(TodoList);
 
 const TodoListWrapper = styled.div`
   min-height: 320px;
